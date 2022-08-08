@@ -1,0 +1,30 @@
+
+CREATE TABLE `stock_user` (
+   `id` bigint NOT NULL,
+   `create_date` datetime NOT NULL,
+   `update_date` datetime NOT NULL,
+   `user_name` varchar(45) NOT NULL,
+   `comments` blob,
+   PRIMARY KEY (`id`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+CREATE TABLE `stock` (
+   `id` bigint NOT NULL,
+   `ticker_id` bigint NOT NULL,
+   `purchase_price` decimal(19,2) NOT NULL,
+   `stock_user_id` bigint NOT NULL,
+   `count` int NOT NULL,
+   KEY `ticker_id_idx` (`ticker_id`),
+   KEY `stock_user_id_idx` (`stock_user_id`),
+   CONSTRAINT `stock_user_id` FOREIGN KEY (`stock_user_id`) REFERENCES `stock_user` (`id`),
+   CONSTRAINT `ticker_id` FOREIGN KEY (`ticker_id`) REFERENCES `ticker` (`id`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+CREATE TABLE `ticker` (
+   `id` bigint NOT NULL,
+   `create_date` datetime NOT NULL,
+   `update_date` datetime NOT NULL,
+   `stock_symbol` varchar(5) NOT NULL,
+   `price` decimal(19,2) NOT NULL,
+   PRIMARY KEY (`id`),
+   UNIQUE KEY `ticker_UNIQUE` (`stock_symbol`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
