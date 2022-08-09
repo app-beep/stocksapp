@@ -8,6 +8,11 @@ public class Printer <T extends Animal>{
     {
         this.toPrint = toPrint;
     }
+
+    public T get()
+    {
+        return toPrint;
+    }
     public void print()
     {
         System.out.println(this.toPrint.getClass());
